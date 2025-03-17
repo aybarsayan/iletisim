@@ -1,7 +1,7 @@
 'use client';
 import { useState, FormEvent, ChangeEvent, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Loader2, ChevronUp, MessageSquare, Maximize2, X } from 'lucide-react';
+import { Send, Loader2, ChevronUp, MessageSquare, Maximize2, X, Download } from 'lucide-react';
 import Image from 'next/image';
 import Navbar from './Navbar';
 import { UserData } from '@/types';
@@ -99,6 +99,9 @@ const ChatInterface = () => {
   const [isDownloading, setIsDownloading] = useState(false);
   const [showPresetQuestions, setShowPresetQuestions] = useState(false);
   const [fullscreenPdf, setFullscreenPdf] = useState<string | null>(null);
+  const [pdfLoadErrors, setPdfLoadErrors] = useState<{[key: number]: boolean}>({});
+  const [loadingPdfs, setLoadingPdfs] = useState<{[key: number]: boolean}>({});
+  const [pdfBlobUrls, setPdfBlobUrls] = useState<{[key: number]: string}>({});
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -117,6 +120,45 @@ const ChatInterface = () => {
     });
   }, []);
 
+  // PDF verilerini base64'den blob'a dönüştürerek browser uyumluluğunu artırma
+  const convertBase64ToBlob = async (base64Data: string, messageId: number) => {
+    try {
+      console.log("PDF Base64 verisini Blob'a dönüştürmeye başlanıyor");
+      
+      // Base64 veri URL'inden veri kısmını çıkar
+      if (!base64Data.includes('base64,')) {
+        console.error("Geçersiz base64 veri formatı");
+        return null;
+      }
+      
+      const base64Content = base64Data.split('base64,')[1];
+      const contentType = base64Data.split(';')[0].split(':')[1] || 'application/pdf';
+      
+      // Base64'ü binary veriye dönüştür
+      const binaryString = window.atob(base64Content);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      
+      // Binary veriyi Blob'a dönüştür
+      const blob = new Blob([bytes], { type: contentType });
+      
+      // Blob URL oluştur
+      const blobUrl = URL.createObjectURL(blob);
+      console.log(`Blob URL oluşturuldu: ${blobUrl}`);
+      
+      // URL'i state'e kaydet
+      setPdfBlobUrls(prev => ({...prev, [messageId]: blobUrl}));
+      
+      return blobUrl;
+    } catch (error) {
+      console.error("Base64 to Blob dönüşüm hatası:", error);
+      return null;
+    }
+  };
 
   const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -220,6 +262,7 @@ const ChatInterface = () => {
 
     try {
       setIsDownloading(true);
+      console.log(`PDF indirme başlatıldı: ${filename}`);
       
       const response = await fetch('/api/download', {
         method: 'POST',
@@ -230,17 +273,42 @@ const ChatInterface = () => {
       });
 
       if (!response.ok) {
-        throw new Error('İndirme hatası');
+        const errorData = await response.json();
+        console.error('PDF indirme API hatası:', errorData);
+        throw new Error(`İndirme hatası: ${errorData.error || response.statusText}`);
       }
 
-      const { data } = await response.json();
+      const result = await response.json();
+      console.log('PDF indirme yanıtı:', { success: result.success, size: result.size, contentType: result.contentType });
+      
+      if (!result.data) {
+        console.error('PDF verisi alınamadı');
+        throw new Error('PDF verisi alınamadı');
+      }
+      
+      // PDF veri URL'ini doğrula
+      if (!result.data.startsWith('data:') || !result.data.includes('base64')) {
+        console.error('Geçersiz PDF veri URL formatı:', result.data.substring(0, 50) + '...');
+        throw new Error('Geçersiz PDF veri formatı');
+      }
+      
+      console.log('PDF veri URL\'i başarıyla alındı, boyut:', result.size || 'bilinmiyor');
+      
+      const newMessageId = Date.now();
+      
+      // Blob URL oluştur - daha iyi tarayıcı performansı için
+      await convertBase64ToBlob(result.data, newMessageId);
       
       setMessages(prev => {
         const lastMessage = prev[prev.length - 1];
         if (lastMessage?.sender === 'bot') {
+          // PDF yükleme durumunu ayarla
+          setLoadingPdfs(loadingState => ({...loadingState, [newMessageId]: true}));
+          
           return [...prev.slice(0, -1), {
             ...lastMessage,
-            pdfUrl: data,
+            id: newMessageId,
+            pdfUrl: result.data,
             showPdf: true
           }];
         }
@@ -249,6 +317,17 @@ const ChatInterface = () => {
       
     } catch (error) {
       console.error('Dosya indirme hatası:', error);
+      // Kullanıcıya hata mesajı göster
+      setMessages(prev => {
+        const lastMessage = prev[prev.length - 1];
+        if (lastMessage?.sender === 'bot') {
+          return [...prev.slice(0, -1), {
+            ...lastMessage,
+            text: lastMessage.text + '\n\n[PDF yüklenirken bir hata oluştu. Lütfen tekrar deneyin.]'
+          }];
+        }
+        return prev;
+      });
     } finally {
       setIsDownloading(false);
     }
@@ -258,6 +337,30 @@ const ChatInterface = () => {
     setInputMessage(question);
     setShowPresetQuestions(false);
   };
+
+  // PDF iframe yükleme durumunu izleme
+  const handlePdfLoad = (messageId: number) => {
+    console.log(`PDF ${messageId} yüklendi`);
+    setLoadingPdfs(prev => ({...prev, [messageId]: false}));
+    setPdfLoadErrors(prev => ({...prev, [messageId]: false}));
+  };
+
+  // PDF iframe yükleme hatası
+  const handlePdfError = (messageId: number) => {
+    console.error(`PDF ${messageId} yüklenemedi`);
+    setLoadingPdfs(prev => ({...prev, [messageId]: false}));
+    setPdfLoadErrors(prev => ({...prev, [messageId]: true}));
+  };
+
+  // PDF içeriğini görüntülemeden önce temizleme
+  useEffect(() => {
+    return () => {
+      // Componentten çıkarken blob URL'leri temizle
+      Object.values(pdfBlobUrls).forEach(url => {
+        URL.revokeObjectURL(url);
+      });
+    };
+  }, [pdfBlobUrls]);
 
   return (
     <>
@@ -274,7 +377,15 @@ const ChatInterface = () => {
               className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm"
             >
               <div className="absolute inset-4 bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-                <div className="p-4 flex justify-end border-b">
+                <div className="p-4 flex justify-between border-b">
+                  <a 
+                    href={fullscreenPdf} 
+                    download={`document.pdf`}
+                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-gray-600 hover:text-gray-900 flex items-center gap-2"
+                  >
+                    <Download className="w-5 h-5" />
+                    <span className="text-sm">PDF&apos;i İndir</span>
+                  </a>
                   <button
                     onClick={() => setFullscreenPdf(null)}
                     className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-gray-600 hover:text-gray-900"
@@ -284,11 +395,15 @@ const ChatInterface = () => {
                   </button>
                 </div>
                 <div className="flex-1 relative">
-                  <iframe
-                    src={`${fullscreenPdf}#toolbar=0&navpanes=0`}
+                  <object
+                    data={fullscreenPdf}
+                    type="application/pdf"
                     className="absolute inset-0 w-full h-full"
-                    title="PDF Görüntüleyici (Tam Ekran)"
-                  />
+                  >
+                    <div className="flex items-center justify-center h-full">
+                      <p>PDF görüntülenemiyor. <a href={fullscreenPdf} download className="text-primary-500 underline">İndirmek için tıklayın</a></p>
+                    </div>
+                  </object>
                 </div>
               </div>
             </motion.div>
@@ -341,24 +456,91 @@ const ChatInterface = () => {
                           <div className="w-[350px] h-[400px] rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-xl">
                             <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-gray-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                             
-                            {/* Maximize Button */}
-                            <button
-                              onClick={() => message.pdfUrl ? setFullscreenPdf(message.pdfUrl) : null}
-                              className="absolute top-2 right-2 p-1.5 rounded-lg bg-white/90 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white hover:scale-105 z-10"
-                              aria-label="PDF'i tam ekran görüntüle"
-                            >
-                              <Maximize2 className="w-4 h-4 text-gray-600" />
-                            </button>
+                            {/* Kontroller */}
+                            <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                              {/* İndir butonu */}
+                              <a 
+                                href={pdfBlobUrls[message.id] || message.pdfUrl} 
+                                download={`document-${message.id}.pdf`}
+                                className="p-1.5 rounded-lg bg-white/90 shadow-lg hover:bg-white hover:scale-105"
+                                aria-label="PDF'i indir"
+                              >
+                                <Download className="w-4 h-4 text-gray-600" />
+                              </a>
+                              
+                              {/* Tam ekran butonu */}
+                              <button
+                                onClick={() => message.pdfUrl ? setFullscreenPdf(pdfBlobUrls[message.id] || message.pdfUrl) : null}
+                                className="p-1.5 rounded-lg bg-white/90 shadow-lg hover:bg-white hover:scale-105"
+                                aria-label="PDF'i tam ekran görüntüle"
+                              >
+                                <Maximize2 className="w-4 h-4 text-gray-600" />
+                              </button>
+                            </div>
 
-                            <iframe
-                              src={`${message.pdfUrl}#toolbar=0&navpanes=0`}
+                            {/* PDF yükleme durumu göstergesi */}
+                            {loadingPdfs[message.id] && (
+                              <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10">
+                                <div className="flex flex-col items-center">
+                                  <motion.div
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                  >
+                                    <Loader2 className="w-8 h-8 text-primary-500" />
+                                  </motion.div>
+                                  <p className="mt-2 text-sm text-gray-600">PDF yükleniyor...</p>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* PDF yükleme hatası göstergesi */}
+                            {pdfLoadErrors[message.id] && (
+                              <div className="absolute inset-0 flex items-center justify-center bg-white/90 z-10">
+                                <div className="text-center p-4">
+                                  <div className="w-12 h-12 rounded-full bg-red-100 mx-auto flex items-center justify-center mb-3">
+                                    <X className="w-6 h-6 text-red-500" />
+                                  </div>
+                                  <p className="text-red-600 font-medium">PDF yüklenemedi</p>
+                                  <p className="text-sm text-gray-600 mt-1">Dosya görüntülenirken bir hata oluştu.</p>
+                                  <div className="flex gap-2 justify-center mt-3">
+                                    <button 
+                                      onClick={() => setPdfLoadErrors(prev => ({...prev, [message.id]: false}))}
+                                      className="px-4 py-2 bg-primary-500 text-white rounded-lg text-sm hover:bg-primary-600 transition-colors"
+                                    >
+                                      Tekrar Dene
+                                    </button>
+                                    <a 
+                                      href={pdfBlobUrls[message.id] || message.pdfUrl} 
+                                      download={`document-${message.id}.pdf`}
+                                      className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg text-sm hover:bg-gray-300 transition-colors"
+                                    >
+                                      İndir
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Öncelikle Blob URL ile dene (daha iyi performans), yoksa data URL */}
+                            <object
+                              data={pdfBlobUrls[message.id] || message.pdfUrl}
+                              type="application/pdf"
                               className="w-full h-full"
-                              title="PDF Görüntüleyici"
-                              style={{
-                                border: 'none',
-                                borderRadius: '16px',
-                              }}
-                            />
+                              onLoad={() => handlePdfLoad(message.id)}
+                              onError={() => handlePdfError(message.id)}
+                            >
+                              <div className="flex items-center justify-center h-full flex-col p-4 bg-gray-50">
+                                <p className="text-sm text-gray-600 mb-2">PDF görüntülenemiyor.</p>
+                                <a 
+                                  href={pdfBlobUrls[message.id] || message.pdfUrl} 
+                                  download={`document-${message.id}.pdf`}
+                                  className="px-4 py-2 bg-primary-500 text-white rounded-lg text-sm hover:bg-primary-600 transition-colors"
+                                >
+                                  PDF&apos;i İndir
+                                </a>
+                              </div>
+                            </object>
+                            
                             <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-gray-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                           </div>
                         </motion.div>
