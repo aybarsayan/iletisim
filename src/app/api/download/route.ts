@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 
     const command = new GetObjectCommand({
       Bucket: 'leveldergi',
-      Key: `dezanformasyon/${filename}`,
+      Key: `halkla/${filename}`,
     });
 
     const response = await s3Client.send(command);
