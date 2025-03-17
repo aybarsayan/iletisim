@@ -72,17 +72,18 @@ const Avatar = ({ src, alt, size = "normal" }: { src: string; alt: string; size?
   </div>
 );
 
-function extractCitation(text: string) {
-  if (!text.includes('】')) return false;
-  const lastOpenBracket = text.lastIndexOf('【');
-  if (lastOpenBracket === -1) return false;
-  const potentialCitation = text.slice(lastOpenBracket);
-  const closingBracketIndex = potentialCitation.indexOf('】');
-  if (closingBracketIndex === -1) return false;
-  const citationContent = potentialCitation.slice(0, closingBracketIndex + 1);
-  const regex = /【\d+:\d+†(.+?)】/;
-  const match = citationContent.match(regex);
-  return match ? match[1] : false;
+
+// Tüm citation'ları bul, sadece son citation'ı değil
+function extractAllCitations(text: string) {
+  const citations = [];
+  const regex = /【\d+:\d+†(.+?)】/g;
+  let match;
+  
+  while ((match = regex.exec(text)) !== null) {
+    citations.push(match[1]);
+  }
+  
+  return citations;
 }
 
 // Worker URL'ini statik olarak tanımla
@@ -103,6 +104,7 @@ const ChatInterface = () => {
   const [loadingPdfs, setLoadingPdfs] = useState<{[key: number]: boolean}>({});
   const [pdfBlobUrls, setPdfBlobUrls] = useState<{[key: number]: string}>({});
   const [directDownloadUrls, setDirectDownloadUrls] = useState<{[key: number]: string}>({});
+  const [processedCitations, setProcessedCitations] = useState<string[]>([]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -213,7 +215,8 @@ const ChatInterface = () => {
     e.preventDefault();
     if (!inputMessage.trim() || isLoading) return;
 
-
+    // Yeni soru göndermeden önce citation listesini sıfırla
+    setProcessedCitations([]);
     
     const userMessage: MessageWithPdf = {
       id: Date.now(),
@@ -246,7 +249,7 @@ const ChatInterface = () => {
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
       let botMessageText = '';
-      let lastCitation = '';
+      let lastCitations: string[] = [];
 
       if (reader) {
         while (true) {
@@ -263,10 +266,18 @@ const ChatInterface = () => {
                 if (data.content) {
                   botMessageText += data.content;
                   
-                  const newCitation = extractCitation(botMessageText);
-                  if (newCitation !== false && newCitation !== lastCitation) {
-                    lastCitation = newCitation;
-                    // PDF indirme işlemini burada yapmıyoruz
+                  // Tüm yeni citation'ları çıkar
+                  const allCitations = extractAllCitations(botMessageText);
+                  
+                  // Henüz işlenmemiş yeni citation'ları bul
+                  const newCitations = allCitations.filter(
+                    citation => !processedCitations.includes(citation) && !lastCitations.includes(citation)
+                  );
+                  
+                  // Yeni citation'ları işlenmiş olarak işaretle
+                  if (newCitations.length > 0) {
+                    lastCitations = [...lastCitations, ...newCitations];
+                    console.log("Yeni alıntılar bulundu:", newCitations);
                   }
 
                   setMessages(prev => {
@@ -292,9 +303,17 @@ const ChatInterface = () => {
           }
         }
 
-        // Mesaj tamamlandıktan sonra, eğer citation varsa bir kez PDF indir
-        if (lastCitation) {
-          await handleDownload(lastCitation);
+        // Yanıt tamamlandıktan sonra, bulunan tüm citation'lar için PDF indir
+        if (lastCitations.length > 0) {
+          console.log("Toplam indirme sayısı:", lastCitations.length);
+          
+          // Tamamlanmış citation'ları işlenmiş olarak işaretle
+          setProcessedCitations(prev => [...prev, ...lastCitations]);
+          
+          // Her bir citation için PDF'i indir
+          for (const citation of lastCitations) {
+            await handleDownload(citation);
+          }
         }
       }
     } catch (error) {
@@ -307,13 +326,27 @@ const ChatInterface = () => {
 
 
   const handleDownload = async (filename: string, retryCount = 0) => {
-    if (isDownloading || !filename) return;
+    // İşlenmiş citation kontrolü
+    if (processedCitations.includes(filename) && retryCount === 0) {
+      console.log(`Bu dosya daha önce işlendi, atlıyoruz: ${filename}`);
+      return;
+    }
+    
+    if (isDownloading && retryCount === 0) {
+      console.log("Başka bir indirme işlemi devam ediyor, bekleyip tekrar deneyeceğiz");
+      // İndirme işlemi devam ediyorsa, biraz bekleyip tekrar dene
+      setTimeout(() => handleDownload(filename, 0), 2000); 
+      return;
+    }
+    
+    if (!filename) return;
     
     const MAX_RETRIES = 2;
     
     try {
       setIsDownloading(true);
       console.log(`PDF indirme başlatıldı: ${filename}, deneme: ${retryCount + 1}`);
+      
       
       // Doğrudan API endpoint'in URL'ini kullan - Vercel için daha güvenilir
       const apiUrl = window.location.origin + '/api/download';
@@ -374,25 +407,52 @@ const ChatInterface = () => {
       
       console.log('PDF veri URL\'i başarıyla alındı, boyut:', result.size || 'bilinmiyor');
       
-      const newMessageId = Date.now();
+      // Yeni mesaj oluşturmak yerine mevcut metne PDF ekle
+      const messageId = Date.now();
       
       // Blob URL oluştur - daha iyi tarayıcı performansı için
-      await convertBase64ToBlob(result.data, newMessageId);
+      await convertBase64ToBlob(result.data, messageId);
       
+      // Citation'ı işlenmiş olarak işaretle
+      if (!processedCitations.includes(filename)) {
+        setProcessedCitations(prev => [...prev, filename]);
+      }
+      
+      // Son bot mesajını bul ve PDF ekle
       setMessages(prev => {
-        const lastMessage = prev[prev.length - 1];
-        if (lastMessage?.sender === 'bot') {
-          // PDF yükleme durumunu ayarla
-          setLoadingPdfs(loadingState => ({...loadingState, [newMessageId]: true}));
-          
-          return [...prev.slice(0, -1), {
-            ...lastMessage,
-            id: newMessageId,
-            pdfUrl: result.data,
-            showPdf: true
-          }];
+        // Bot mesajlarını filtrele ve en son mesajı al
+        const botMessages = prev.filter(msg => msg.sender === 'bot');
+        
+        if (botMessages.length === 0) {
+          console.error("Bot mesajı bulunamadı, PDF eklenemedi");
+          return prev;
         }
-        return prev;
+        
+        const lastBotMessageIndex = prev.findIndex(msg => msg.id === botMessages[botMessages.length - 1].id);
+        
+        if (lastBotMessageIndex === -1) {
+          console.error("Bot mesajı dizide bulunamadı");
+          return prev;
+        }
+        
+        // Mevcut mesajdan bir kopya oluştur
+        const updatedMessages = [...prev];
+        
+        // Yükleme durumunu ayarla
+        setLoadingPdfs(loadingState => ({...loadingState, [messageId]: true}));
+        
+        // Yeni PDF bilgisini ekle
+        const updatedBotMessage = {
+          ...updatedMessages[lastBotMessageIndex],
+          id: messageId, // ID'yi güncelle
+          pdfUrl: result.data,
+          showPdf: true
+        };
+        
+        // Mesajları güncelle
+        updatedMessages[lastBotMessageIndex] = updatedBotMessage;
+        
+        return updatedMessages;
       });
       
     } catch (error) {
@@ -427,6 +487,8 @@ const ChatInterface = () => {
     } finally {
       // Son yeniden deneme değilse isDownloading'i false yapma
       if (retryCount >= MAX_RETRIES) {
+        setIsDownloading(false);
+      } else if (retryCount === 0) {
         setIsDownloading(false);
       }
     }
