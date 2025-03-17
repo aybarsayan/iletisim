@@ -135,7 +135,7 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://level-backend.fly.dev/analiz/test', {
+      const response = await fetch('https://iletisim-backend.fly.dev/analiz/test', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
