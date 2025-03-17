@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server';
 import { S3Client, GetObjectCommand, S3ServiceException } from '@aws-sdk/client-s3';
 
+// Middleware bileşeni - CORS için header'ları ayarlar
+function corsHeaders() {
+  return {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+}
+
 // S3 bağlantı hatalarını önlemek için doğru yapılandırma
 const s3Client = new S3Client({
   region: process.env.AWS_REGION || 'eu-north-1',
@@ -21,14 +30,35 @@ const validateS3Credentials = () => {
   return true;
 };
 
+// Vercel ortamında OPTIONS requesti için yanıt veren fonksiyon
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders() });
+}
+
 export async function POST(request: Request) {
   console.log("API download isteği alındı");
   
+  // Vercel ortamında değişkenlerimizi kontrol edelim
+  console.log("Ortam değişkenleri kontrol ediliyor (değerler gösterilmeden):");
+  console.log("AWS_REGION mevcut mu:", !!process.env.AWS_REGION);
+  console.log("AWS_ACCESS_KEY_ID mevcut mu:", !!process.env.AWS_ACCESS_KEY_ID);
+  console.log("AWS_SECRET_ACCESS_KEY mevcut mu:", !!process.env.AWS_SECRET_ACCESS_KEY);
+  console.log("AWS_BUCKET_NAME mevcut mu:", !!process.env.AWS_BUCKET_NAME);
+  
   // S3 kimlik bilgilerini doğrula
   if (!validateS3Credentials()) {
+    // Vercel üzerindeki sorunları belirlememiz için daha detaylı hata mesajı
+    const missingCredentials = [];
+    if (!process.env.AWS_ACCESS_KEY_ID) missingCredentials.push('AWS_ACCESS_KEY_ID');
+    if (!process.env.AWS_SECRET_ACCESS_KEY) missingCredentials.push('AWS_SECRET_ACCESS_KEY');
+    if (!process.env.AWS_REGION) missingCredentials.push('AWS_REGION');
+    
+    const errorMessage = `S3 yapılandırması eksik: ${missingCredentials.join(', ')}`;
+    console.error(errorMessage);
+    
     return NextResponse.json(
-      { error: 'S3 yapılandırması eksik veya hatalı' },
-      { status: 500 }
+      { error: errorMessage },
+      { status: 500, headers: corsHeaders() }
     );
   }
 
@@ -38,7 +68,7 @@ export async function POST(request: Request) {
 
     if (!filename) {
       console.error("Dosya adı sağlanmadı");
-      return NextResponse.json({ error: 'Dosya adı gerekli' }, { status: 400 });
+      return NextResponse.json({ error: 'Dosya adı gerekli' }, { status: 400, headers: corsHeaders() });
     }
     
     console.log(`İstenilen dosya: ${filename}`);
@@ -116,13 +146,13 @@ export async function POST(request: Request) {
         contentType: contentType,
         filename: filename,
         success: true
-      });
+      }, { headers: corsHeaders() });
     } catch (s3Error) {
       if (s3Error instanceof S3ServiceException) {
         console.error('S3 servis hatası:', s3Error.name, s3Error.message);
         return NextResponse.json(
           { error: `S3 hatası: ${s3Error.name} - ${s3Error.message}` },
-          { status: 500 }
+          { status: 500, headers: corsHeaders() }
         );
       }
       throw s3Error;
@@ -132,7 +162,7 @@ export async function POST(request: Request) {
     const errorMessage = error instanceof Error ? error.message : 'Bilinmeyen hata';
     return NextResponse.json(
       { error: `Dosya indirme hatası: ${errorMessage}` },
-      { status: 500 }
+      { status: 500, headers: corsHeaders() }
     );
   }
 } 

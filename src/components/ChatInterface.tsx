@@ -102,6 +102,7 @@ const ChatInterface = () => {
   const [pdfLoadErrors, setPdfLoadErrors] = useState<{[key: number]: boolean}>({});
   const [loadingPdfs, setLoadingPdfs] = useState<{[key: number]: boolean}>({});
   const [pdfBlobUrls, setPdfBlobUrls] = useState<{[key: number]: string}>({});
+  const [directDownloadUrls, setDirectDownloadUrls] = useState<{[key: number]: string}>({});
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -156,6 +157,54 @@ const ChatInterface = () => {
       return blobUrl;
     } catch (error) {
       console.error("Base64 to Blob dönüşüm hatası:", error);
+      return null;
+    }
+  };
+
+  // Ana indirme işlemi başarısız olursa alternatif indirme methodunu dene
+  const handleFallbackDownload = async (filename: string, messageId: number) => {
+    try {
+      console.log("Alternatif PDF indirme yöntemi deneniyor");
+      
+      const apiUrl = window.location.origin + '/api/download-redirect';
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ filename }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Alternatif indirme başarısız: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (!result.url) {
+        throw new Error('İndirme URL\'i alınamadı');
+      }
+      
+      console.log("Doğrudan S3 indirme URL'i alındı");
+      
+      // Doğrudan indirme URL'ini sakla
+      setDirectDownloadUrls(prev => ({...prev, [messageId]: result.url}));
+      
+      // Kullanıcıya doğrudan indirme bağlantısı göster
+      setMessages(prev => {
+        const lastMessage = prev[prev.length - 1];
+        if (lastMessage?.sender === 'bot') {
+          return [...prev.slice(0, -1), {
+            ...lastMessage,
+            text: lastMessage.text + `\n\n[PDF doğrudan görüntülenemiyor. [PDF'i indirmek için tıklayın](${result.url})]`
+          }];
+        }
+        return prev;
+      });
+      
+      return result.url;
+    } catch (error) {
+      console.error("Alternatif indirme hatası:", error);
       return null;
     }
   };
@@ -257,14 +306,20 @@ const ChatInterface = () => {
   };
 
 
-  const handleDownload = async (filename: string) => {
+  const handleDownload = async (filename: string, retryCount = 0) => {
     if (isDownloading || !filename) return;
-
+    
+    const MAX_RETRIES = 2;
+    
     try {
       setIsDownloading(true);
-      console.log(`PDF indirme başlatıldı: ${filename}`);
+      console.log(`PDF indirme başlatıldı: ${filename}, deneme: ${retryCount + 1}`);
       
-      const response = await fetch('/api/download', {
+      // Doğrudan API endpoint'in URL'ini kullan - Vercel için daha güvenilir
+      const apiUrl = window.location.origin + '/api/download';
+      console.log('API endpoint:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -272,14 +327,39 @@ const ChatInterface = () => {
         body: JSON.stringify({ filename }),
       });
 
+      // Detaylı HTTP yanıt bilgisi için
+      console.log('HTTP Yanıt Durumu:', response.status, response.statusText);
+      console.log('Response Headers:', Object.fromEntries([...response.headers.entries()]));
+
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('PDF indirme API hatası:', errorData);
-        throw new Error(`İndirme hatası: ${errorData.error || response.statusText}`);
+        let errorData;
+        try {
+          errorData = await response.json();
+          console.error('PDF indirme API hatası:', errorData);
+        } catch (parseError) {
+          console.error('API yanıtı JSON olarak ayrıştırılamadı:', parseError);
+          console.error('Ham yanıt:', await response.text());
+        }
+        
+        throw new Error(`İndirme hatası (${response.status}): ${errorData?.error || response.statusText}`);
       }
 
-      const result = await response.json();
-      console.log('PDF indirme yanıtı:', { success: result.success, size: result.size, contentType: result.contentType });
+      let result;
+      try {
+        result = await response.json();
+      } catch (parseError) {
+        console.error('Başarılı yanıt JSON olarak ayrıştırılamadı:', parseError);
+        const rawText = await response.text();
+        console.log('Ham yanıt içeriği:', rawText.slice(0, 200));
+        throw new Error('API yanıtı ayrıştırılamadı');
+      }
+      
+      console.log('PDF indirme yanıtı:', { 
+        success: result.success, 
+        size: result.size, 
+        contentType: result.contentType,
+        filename: result.filename
+      });
       
       if (!result.data) {
         console.error('PDF verisi alınamadı');
@@ -317,19 +397,38 @@ const ChatInterface = () => {
       
     } catch (error) {
       console.error('Dosya indirme hatası:', error);
-      // Kullanıcıya hata mesajı göster
-      setMessages(prev => {
-        const lastMessage = prev[prev.length - 1];
-        if (lastMessage?.sender === 'bot') {
-          return [...prev.slice(0, -1), {
-            ...lastMessage,
-            text: lastMessage.text + '\n\n[PDF yüklenirken bir hata oluştu. Lütfen tekrar deneyin.]'
-          }];
-        }
-        return prev;
-      });
+      
+      // Yeniden deneme mekanizması
+      if (retryCount < MAX_RETRIES) {
+        console.log(`Yeniden deneniyor (${retryCount + 1}/${MAX_RETRIES})...`);
+        setTimeout(() => {
+          handleDownload(filename, retryCount + 1);
+        }, 1000 * (retryCount + 1)); // Her denemede biraz daha uzun bekle
+        return;
+      }
+      
+      // Son deneme başarısız olduysa, alternatif indirme seçeneğini dene
+      const messageId = Date.now();
+      const directUrl = await handleFallbackDownload(filename, messageId);
+      
+      if (!directUrl) {
+        // Alternatif yöntem de başarısız olduysa hata mesajı göster
+        setMessages(prev => {
+          const lastMessage = prev[prev.length - 1];
+          if (lastMessage?.sender === 'bot') {
+            return [...prev.slice(0, -1), {
+              ...lastMessage,
+              text: lastMessage.text + `\n\n[PDF yüklenirken bir hata oluştu: ${error instanceof Error ? error.message : 'Bilinmeyen hata'}. Lütfen tekrar deneyin.]`
+            }];
+          }
+          return prev;
+        });
+      }
     } finally {
-      setIsDownloading(false);
+      // Son yeniden deneme değilse isDownloading'i false yapma
+      if (retryCount >= MAX_RETRIES) {
+        setIsDownloading(false);
+      }
     }
   };
 
@@ -460,8 +559,9 @@ const ChatInterface = () => {
                             <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                               {/* İndir butonu */}
                               <a 
-                                href={pdfBlobUrls[message.id] || message.pdfUrl} 
+                                href={directDownloadUrls[message.id] || pdfBlobUrls[message.id] || message.pdfUrl} 
                                 download={`document-${message.id}.pdf`}
+                                target={directDownloadUrls[message.id] ? "_blank" : undefined}
                                 className="p-1.5 rounded-lg bg-white/90 shadow-lg hover:bg-white hover:scale-105"
                                 aria-label="PDF'i indir"
                               >
@@ -510,7 +610,7 @@ const ChatInterface = () => {
                                       Tekrar Dene
                                     </button>
                                     <a 
-                                      href={pdfBlobUrls[message.id] || message.pdfUrl} 
+                                      href={directDownloadUrls[message.id] || pdfBlobUrls[message.id] || message.pdfUrl} 
                                       download={`document-${message.id}.pdf`}
                                       className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg text-sm hover:bg-gray-300 transition-colors"
                                     >
