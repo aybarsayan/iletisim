@@ -1,0 +1,1525 @@
+{
+  "username": "user123",
+  "magazines": {
+    "1997": {
+      "Level_Ocak-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-1997": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "1998": {
+      "Level_Ocak-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-1998": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "1999": {
+      "Level_Ocak-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-1999": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2000": {
+      "Level_Ocak-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2000": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2001": {
+      "Level_Ocak-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2001": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2002": {
+      "Level_Ocak-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2002": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2003": {
+      "Level_Ocak-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2003": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2004": {
+      "Level_Ocak-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2004": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2005": {
+      "Level_Ocak-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2005": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2006": {
+      "Level_Ocak-2006": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2006": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2006": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2006": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2006": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2006": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2006": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2007": {
+      "Level_Ocak-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2007": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2008": {
+      "Level_Ocak-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temuz-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2008": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2009": {
+      "Level_Ocak-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2009": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2010": {
+      "Level_Ocak-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level-Temmuz-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level-Agustos-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2010": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2011": {
+      "Level_Ocak-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2011": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2012": {
+      "Level_Ocak-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2012": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2013": {
+      "Level_Ocak-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2013": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2014": {
+      "Level_Ocak-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2014": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2015": {
+      "Level_Ocak-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2015": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2016": {
+      "Level_Ocak-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2016": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2017": {
+      "Level_Ocak-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2017": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2018": {
+      "Level_Ocak-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2018": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2019": {
+      "Level_Ocak-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2019": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2020": {
+      "Level_Ocak-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2020": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    },
+    "2021": {
+      "Level_Ocak-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Subat-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mart-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Nisan-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Mayis-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Haziran-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Temmuz-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Agustos-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Eylul-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Ekim-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Kasim-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      },
+      "Level_Aralik-2021": {
+        "active": false,
+        "coverUnlocked": false,
+        "unlockedPages": []
+      }
+    }
+  }
+}
