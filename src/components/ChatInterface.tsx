@@ -28,35 +28,36 @@ interface PresetQuestion {
 const presetQuestions: PresetQuestion[] = [
   {
     id: 1,
-    question: "Türkiye'de devlet teşvikleri hakkında en çok yayılan yanlış bilgiler nelerdir?",
+    question: "CİMER'e en sık yapılan başvuru konuları nelerdir?",
     category: 'general'
   },
   {
     id: 2,
-    question: "Genç girişimcilere yönelik devlet destekleri hakkında yanlış bilinenler nelerdir?",
+    question: "CİMER üzerinden yapılan başvurular nasıl değerlendirilir ve işleme alınır?",
     category: 'general'
   },
   {
     id: 3,
-    question: "Sosyal medyada ekonomi ve finans alanında en çok yayılan dezenformasyon örnekleri nelerdir?",
+    question: "CİMER'e yapılan başvuruların kişisel veri güvenliği nasıl sağlanır?",
     category: 'technical'
   },
   {
     id: 4,
-    question: "Deprem sonrası devlet yardımları hakkında ortaya çıkan yanıltıcı bilgiler nelerdir?",
+    question: "CİMER'e yapılan şikayetlerin çözüm süreci nasıl işler?",
     category: 'general'
   },
   {
     id: 5,
-    question: "Seçim dönemlerinde kamu teşvikleri ile ilgili en sık yayılan dezenformasyonlar nelerdir?",
+    question: "CİMER başvurularında en sık karşılaşılan yanlış başvuru türleri nelerdir?",
     category: 'gameplay'
   },
   {
     id: 6,
-    question: "Devlet destekli projeler hakkında gençler arasında yayılan yanlış bilgiler nelerdir?",
+    question: "CİMER'e yapılan başvurular kamuda hangi politika değişikliklerine yol açmıştır?",
     category: 'technical'
   }
 ];
+
 
 
 const Avatar = ({ src, alt, size = "normal" }: { src: string; alt: string; size?: "normal" | "small" }) => (
