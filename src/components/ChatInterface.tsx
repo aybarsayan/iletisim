@@ -524,6 +524,74 @@ const ChatInterface = () => {
     };
   }, [pdfBlobUrls]);
 
+  // Gelişmiş metin eşleştirme fonksiyonu
+  function smartTextMatch(text: string, query: string) {
+    // Özel durum: CİMER ve cimer kelimeleri her zaman eşleşsin
+    const specialCase = (input: string): boolean => {
+      const normalizedInput = input.toLowerCase().trim();
+      return normalizedInput === 'cimer' || normalizedInput === 'cimer';
+    };
+    
+    if (specialCase(text) && specialCase(query)) return 100;
+    
+    // Türkçe karakter dönüşümlerini yaparak normalize et
+    const normalizeText = (input: string): string => {
+      return input
+        .toLowerCase()
+        .trim()
+        .replace(/[ıİ]/g, 'i')  // Hem ı hem İ karakterini i'ye çevir
+        .replace(/[çÇ]/g, 'c')
+        .replace(/[şŞ]/g, 's')
+        .replace(/[ğĞ]/g, 'g')
+        .replace(/[üÜ]/g, 'u')
+        .replace(/[öÖ]/g, 'o')
+        .replace(/[âÂ]/g, 'a')
+        .replace(/[îÎ]/g, 'i')
+        .replace(/[ûÛ]/g, 'u')
+        .replace(/[êÊ]/g, 'e')
+        .replace(/[ôÔ]/g, 'o')
+        .replace(/[ı]/g, 'i')  // Küçük ı karakterini i'ye çevir
+        .replace(/[İ]/g, 'i'); // Büyük İ karakterini i'ye çevir
+    };
+    
+    // Metinleri normalize et
+    const normalizedText = normalizeText(text);
+    const normalizedQuery = normalizeText(query);
+    
+    // Tam eşleşme - en yüksek puan
+    if (normalizedText === normalizedQuery) return 100;
+    
+    // İçerme kontrolü - orta seviye puan
+    if (normalizedText.includes(normalizedQuery)) return 80;
+    
+    // Kelimeleri ayır ve her bir kelime için kontrol et
+    const textWords = normalizedText.split(/\s+/);
+    const queryWords = normalizedQuery.split(/\s+/);
+    
+    // Kelime bazlı eşleşme sayısı
+    let matchCount = 0;
+    for (const queryWord of queryWords) {
+      if (queryWord.length < 2) continue; // Çok kısa kelimeleri atla
+      
+      for (const textWord of textWords) {
+        if (textWord.includes(queryWord) || queryWord.includes(textWord)) {
+          matchCount++;
+          break;
+        }
+      }
+    }
+    
+    // Kelime bazlı eşleşme oranı (0-60 arası puan)
+    if (queryWords.length > 0) {
+      return Math.min(60, Math.floor((matchCount / queryWords.length) * 60));
+    }
+    
+    // Kısmi eşleşme kontrolü - düşük seviye puan
+    if (normalizedText.startsWith(normalizedQuery) || normalizedQuery.startsWith(normalizedText)) return 50;
+    
+    return 0; // Eşleşme yok
+  }
+
   return (
     <>
       <div className="flex flex-col min-h-screen bg-gradient-to-b from-primary-50 to-primary-100">
@@ -837,25 +905,44 @@ const ChatInterface = () => {
 
                 {/* Input Suggestions */}
                 {inputMessage.trim() && !isLoading && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="absolute left-0 right-0 bottom-full mb-2 p-2 bg-white rounded-xl shadow-lg border border-gray-100 space-y-1"
-                  >
-                    <p className="text-xs text-gray-500 px-2">Önerilen Sorular:</p>
-                    {presetQuestions
-                      .filter(q => q.question.toLowerCase().includes(inputMessage.toLowerCase()))
-                      .slice(0, 3)
-                      .map(q => (
-                        <button
-                          key={q.id}
-                          onClick={() => handlePresetQuestionClick(q.question)}
-                          className="w-full p-2 text-left text-sm text-gray-700 hover:bg-primary-50 rounded-lg transition-colors duration-150"
+                  <>
+                    {/* Önce filtrele, sadece bir sonuç varsa göster */}
+                    {(() => {
+                      const filteredQuestions = presetQuestions
+                        .map(q => ({
+                          ...q,
+                          matchScore: smartTextMatch(q.question, inputMessage)
+                        }))
+                        .filter(q => q.matchScore > 0)
+                        .sort((a, b) => b.matchScore - a.matchScore)
+                        .slice(0, 3);
+                        
+                      // Eşleşen sonuç yoksa hiçbir şey gösterme
+                      if (filteredQuestions.length === 0) {
+                        return null;
+                      }
+                      
+                      // Eşleşen sonuçlar varsa liste göster
+                      return (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="absolute left-0 right-0 bottom-full mb-2 p-2 bg-white rounded-xl shadow-lg border border-gray-100 space-y-1"
                         >
-                          {q.question}
-                        </button>
-                      ))}
-                  </motion.div>
+                          <p className="text-xs text-gray-500 px-2">Önerilen Sorular:</p>
+                          {filteredQuestions.map(q => (
+                            <button
+                              key={q.id}
+                              onClick={() => handlePresetQuestionClick(q.question)}
+                              className="w-full p-2 text-left text-sm text-gray-700 hover:bg-primary-50 rounded-lg transition-colors duration-150"
+                            >
+                              {q.question}
+                            </button>
+                          ))}
+                        </motion.div>
+                      );
+                    })()}
+                  </>
                 )}
               </motion.form>
             </div>
